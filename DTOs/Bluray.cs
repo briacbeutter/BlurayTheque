@@ -21,7 +21,7 @@ namespace WebApplication.DTOs
         /// <summary>
         /// Le scénariste du film
         /// </summary>
-        public Personne Scenariste  { get; set; }
+        public List<Personne> Scenariste  { get; set; }
 
         /// <summary>
         /// Le réalisateur du film
@@ -57,5 +57,7 @@ namespace WebApplication.DTOs
         /// Version du film sur le BR
         /// </summary>
         public string Version { get; set; }
+        
+        public string image { get; set; }
     }
 }

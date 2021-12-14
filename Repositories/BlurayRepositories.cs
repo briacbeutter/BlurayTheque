@@ -20,10 +20,10 @@ namespace WebApplication.Repositories
 
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=briac;Password=briac;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 // Define a query returning a single row result set
-                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version FROM bluray b", connection);
+                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image FROM bluray b", connection);
                 // Execute the query and obtain a result set
                 MySqlDataReader dr = command.ExecuteReader();
 
@@ -36,7 +36,8 @@ namespace WebApplication.Repositories
                         Titre = dr[1].ToString(),
                         DateSortie = (DateTime) dr[2],
                         Duree = TimeSpan.Parse(dr[3].ToString()),
-                        Version = dr[4].ToString()
+                        Version = dr[4].ToString(),
+                        image = dr[5].ToString()
                     });
                 }
             }

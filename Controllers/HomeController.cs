@@ -18,15 +18,18 @@ namespace WebApplication.Controllers
         {
             _logger = logger;
             brRepository = new BlurayRepository();
+            pRepository = new PersonneRepository();
         }
 
         public IActionResult Index()
         {
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
-            for(int i=0;i<model.Blurays.Count;i++)
+            foreach(var var in model.Blurays)
             {
-                model.Blurays[i].Realisateur = pRepository.GetRealisateur(model.Blurays[i].Id);
+                var.Realisateur = pRepository.GetRealisateur(var.Id);
+                var.Scenariste = pRepository.GetScenariste(var.Id);
+                var.Acteurs = pRepository.GetActeursByFilm(var.Id);
             }
             return View(model);
         }
@@ -37,7 +40,12 @@ namespace WebApplication.Controllers
             model.Blurays = brRepository.GetListeBluRay();
             model.SelectedBluray = model.Blurays.Find(x => x.Id == id);
             if (model.SelectedBluray != null)
+            {
                 model.SelectedBluray.Realisateur = pRepository.GetRealisateur(id);
+                model.SelectedBluray.Scenariste = pRepository.GetScenariste(id);
+                model.SelectedBluray.Acteurs = pRepository.GetActeursByFilm(id);
+            }
+
             return View(model);
         }
 
