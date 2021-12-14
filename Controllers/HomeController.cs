@@ -49,15 +49,10 @@ namespace WebApplication.Controllers
             return View(model);
         }
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            
             IndexViewModel model = new IndexViewModel();
-            //brRepository.DeleteBluRay(id);
+            brRepository.DeleteBluRay(id);
             model.Blurays = brRepository.GetListeBluRay();
             return View("Index",model);
         }
@@ -66,10 +61,8 @@ namespace WebApplication.Controllers
         {
             Bluray blurayToAdd = new Bluray
             {
-                Id = 8,
                 Titre = formModel.Titre,
                 DateSortie = formModel.DateSortie,
-                Version = "Courte",
                 Duree = formModel.Duree,
                 /*Realisateur = new Personne
                 {
@@ -82,7 +75,7 @@ namespace WebApplication.Controllers
                     Prenom = formModel.Scenariste.ToString().Split(" ")[0],
                 },*/
             };
-            //brRepository.AddBluRay(blurayToAdd);
+            brRepository.AddBluRay(formModel);
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
             //Response.Redirect("/Home/Index");

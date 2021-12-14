@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using WebApplication.DTOs;
+using WebApplication.Models;
 
 namespace WebApplication.Repositories
 {
     public class BlurayRepository
     
     {
+        private MySqlConnection connection;
         /// <summary>
         /// Consctructeur par défaut
         /// </summary>
@@ -15,7 +17,6 @@ namespace WebApplication.Repositories
 
         public List<Bluray> GetListeBluRay()
         {
-            MySqlConnection connection = null;
             List<Bluray> listBluRay = new List<Bluray>();
 
             try
@@ -50,6 +51,51 @@ namespace WebApplication.Repositories
             }
             return listBluRay;
         }
-        
+
+        public void AddBluRay(BlurayViewModel formModel)
+        {
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command = new MySqlCommand("INSERT INTO `bluray`(`id`, `titre`, `duree`, `dateSortie`, `version`, `image`) VALUES (?1, ?2, ?3, ?4, ?5,'https://fr.web.img6.acsta.net/r_654_368/newsv7/15/10/19/21/14/237930.jpg')", connection);
+                command.Parameters.AddWithValue("1", formModel.Id);
+                command.Parameters.AddWithValue("2", formModel.Titre);
+                command.Parameters.AddWithValue("3", formModel.Duree);
+                command.Parameters.AddWithValue("4", formModel.DateSortie);
+                command.Parameters.AddWithValue("5", formModel.Version);
+                command.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void DeleteBluRay(int id)
+        {
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command = new MySqlCommand("DELETE FROM bluray WHERE id=?id", connection);
+                command.Parameters.AddWithValue("id", id);
+                command.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
