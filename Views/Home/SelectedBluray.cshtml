@@ -25,14 +25,14 @@
                 <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@Model.SelectedBluray.Duree</p>
             </div>
         </div>
-        <div style="position: relative;top: -50px;">
+        @*<div style="position: relative;top: -50px;">
             Acteurs :
             @foreach (var act in Model.SelectedBluray.Acteurs)
             {
                 <div>Nom : @act.Nom</div>
                 <div>Prenom : @act.Prenom</div>
             }
-        </div>
+        </div>*@
         <div class="button-del">
             <a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.SelectedBluray.Id">Supprimer</a>
         </div>

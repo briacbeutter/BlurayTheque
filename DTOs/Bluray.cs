@@ -11,7 +11,7 @@ namespace WebApplication.DTOs
         /// <summary>
         /// Identifiant technique
         /// </summary>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Titre du film contenu sur le Blu-Ray

@@ -12,6 +12,7 @@ namespace WebApplication.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly BlurayRepository brRepository;
+        private readonly PersonneRepository pRepository;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -23,18 +24,24 @@ namespace WebApplication.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
+            for(int i=0;i<model.Blurays.Count;i++)
+            {
+                model.Blurays[i].Realisateur = pRepository.GetRealisateur(model.Blurays[i].Id);
+            }
             return View(model);
         }
 
-        public IActionResult SelectedBluRay([FromRoute]long id)
+        public IActionResult SelectedBluRay([FromRoute]int id)
         {
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
             model.SelectedBluray = model.Blurays.Find(x => x.Id == id);
+            if (model.SelectedBluray != null)
+                model.SelectedBluray.Realisateur = pRepository.GetRealisateur(id);
             return View(model);
         }
 
-        public IActionResult Delete(long? id)
+        public IActionResult Delete(int? id)
         {
             if (!id.HasValue)
             {
@@ -42,7 +49,7 @@ namespace WebApplication.Controllers
             }
             
             IndexViewModel model = new IndexViewModel();
-            brRepository.DeleteBluRay(id);
+            //brRepository.DeleteBluRay(id);
             model.Blurays = brRepository.GetListeBluRay();
             return View("Index",model);
         }
@@ -67,7 +74,7 @@ namespace WebApplication.Controllers
                     Prenom = formModel.Scenariste.ToString().Split(" ")[0],
                 },*/
             };
-            brRepository.AddBluRay(blurayToAdd);
+            //brRepository.AddBluRay(blurayToAdd);
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
             //Response.Redirect("/Home/Index");
