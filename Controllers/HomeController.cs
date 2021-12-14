@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication.Models;
-using WebApplication.Repositories;
 using System.Diagnostics;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication.DTOs;
+using WebApplication.Models;
+using WebApplication.Repositories;
 
 namespace WebApplication.Controllers
 {
@@ -14,12 +11,12 @@ namespace WebApplication.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly BlurayRepositories brRepository;
+        private readonly BlurayRepository brRepository;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            brRepository = new BlurayRepositories();
+            brRepository = new BlurayRepository();
         }
 
         public IActionResult Index()

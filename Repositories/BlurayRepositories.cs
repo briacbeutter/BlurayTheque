@@ -1,86 +1,54 @@
 using System;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 using WebApplication.DTOs;
 
 namespace WebApplication.Repositories
 {
-    public class BlurayRepositories
+    public class BlurayRepository
+    
     {
-        private List<Bluray> listBluray = new List<Bluray>();
-
         /// <summary>
         /// Consctructeur par défaut
         /// </summary>
-        public BlurayRepositories()
-        {
-            listBluray.Add(new Bluray
-            {
-                Id = 0,
-                Titre = "My Little film 1",
-                DateSortie = DateTime.Now,
-                Version = "Courte",
-                Duree = new TimeSpan(1, 06, 30),
-                Realisateur = new Personne
-                {
-                    Nom = "BOUE",
-                    Prenom = "Hugo"
-                },
-
-                Acteurs = new List<Personne>
-                {
-                    new Personne
-                    {
-                        Id = 0,
-                        Nom = "Per",
-                        Prenom = "Sonne",
-                        Nationalite = "Fr",
-                        DateNaissance = DateTime.Now,
-                        Professions = new List<string> {"Acteur"}
-                    }
-                }
-            });
-            listBluray.Add(new Bluray
-                {
-                    Id = 1,
-                    Titre = "My Little film 2",
-                    DateSortie = DateTime.Now,
-                    Version = "Longue",
-                    Duree = new TimeSpan(2, 06, 30),
-                    Realisateur = new Personne
-                    {
-                        Nom = "BEUTTER",
-                        Prenom = "Briac"
-                    },
-                    Acteurs = new List<Personne>
-                    {
-                        new Personne
-                        {
-                            Id = 0,
-                            Nom = "Per",
-                            Prenom = "Sonne",
-                            Nationalite = "Fr",
-                            DateNaissance = DateTime.Now,
-                            Professions = new List<string> {"Acteur"}
-                        }
-                    }
-                }
-            );
-        }
+        public BlurayRepository(){ }
 
         public List<Bluray> GetListeBluRay()
         {
-            return this.listBluray;
-        }
+            MySqlConnection connection = null;
+            List<Bluray> listBluRay = new List<Bluray>();
 
-        public void DeleteBluRay(long? id)
-        {
-            Bluray index = this.listBluray.Find((bl => bl.Id == id));
-            this.listBluray.Remove(index);
-        }
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                // Define a query returning a single row result set
+                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version FROM bluray b", connection);
+                // Execute the query and obtain a result set
+                MySqlDataReader dr = command.ExecuteReader();
 
-        public void AddBluRay(Bluray bluray)
-        {
-            this.listBluray.Add(bluray);
+                // Output rows
+                while (dr.Read())
+                {
+                    listBluRay.Add(new Bluray
+                    {
+                        Id = int.Parse(dr[0].ToString()),
+                        Titre = dr[1].ToString(),
+                        DateSortie = (DateTime) dr[2],
+                        Duree = TimeSpan.Parse(dr[3].ToString()),
+                        Version = dr[4].ToString()
+                    });
+                }
+            }
+            finally
+            {
+                if(connection != null)
+                {
+                    connection.Close();
+                }
+            }
+            return listBluRay;
         }
+        
     }
 }
