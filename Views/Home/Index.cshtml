@@ -1,0 +1,36 @@
+@model WebApplication.Models.IndexViewModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="content">
+    @foreach (var br in Model?.Blurays)
+    {
+        <div>
+            <div class="card-header">
+            </div>
+            <div class="text-center card">
+                <div class="card-avatar">
+                </div>
+                <h1 style="position: relative;top: -40px">
+                    @br.Titre
+                </h1>
+                <h2 style="color: rgba(0,0,0,0.4);font-size: 12px;position: relative;top:-40px">
+                    @* @br.Realisateur.Prenom @br.Realisateur.Nom *@
+                </h2>
+                <div style="display: flex;flex-direction: row;justify-content: space-around;position: relative;top: -25px">
+                    <div style="display: flex;flex-direction: column;justify-content: center;">
+                        <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Date de sortie</p>
+                        <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;}">@br.DateSortie.ToShortDateString()</p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;justify-content: center;">
+                        <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Durée</p>
+                        <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@br.Duree.ToString()</p>
+                    </div>
+                </div>
+                <div class="button-consult">
+                    <a class="text-button" asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id">Consulter</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

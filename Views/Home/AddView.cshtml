@@ -1,0 +1,33 @@
+@using Microsoft.JSInterop
+@model WebApplication.Models.BlurayViewModel
+
+
+@{
+    ViewData["Title"] = "Add bluray Page";
+}
+<h1>Ajouter un Bluray</h1>
+<hr/>
+<form method="POST" asp-controller="Home" asp-action="AddBluray">
+    <div>
+        <p>Titre :</p>
+        <input type="text" asp-for="Titre"/>
+
+        <p>Réalisateur :</p>
+        <input type="text" asp-for="Realisateur"/>
+
+        <p>Scénariste :</p>
+        <input type="text" asp-for="Scenariste"/>
+
+        <p>Durée :</p>
+        <input type="time" asp-for="Duree"/>
+
+        <p>Date de sortie :</p>
+        <input type="date" asp-for="DateSortie"/>
+
+        <p>Version :</p>
+        <input type="number" asp-for="Version"/>
+
+        <input type="submit" value="Submit"/>
+
+    </div>
+</form>
