@@ -14,10 +14,24 @@
         <input type="text" asp-for="Titre"/>
 
         <p>Réalisateur :</p>
-        <input type="text" asp-for="Realisateur"/>
+        <select id="selectReal">
+            @foreach (var real in Model?.Realisateurs)
+            {
+                <option id=@real.Id value=@real.Nom>@real.Nom @real.Prenom</option>
+            }
+        </select>
+        <a onclick="handleAddReal()">Ajouter réalisateur</a>
+        <div id="listReal"></div>
 
         <p>Scénariste :</p>
-        <input type="text" asp-for="Scenariste"/>
+        <select id="selectScenariste">
+            @foreach (var scena in Model?.Scenaristes)
+            {
+                <option id=@scena.Id value=@scena.Nom>@scena.Nom @scena.Prenom</option>
+            }
+        </select>
+        <a onclick="handleAddScena()">Ajouter scénariste</a>
+        <div id="listScena"></div>
 
         <p>Durée :</p>
         <input type="time" asp-for="Duree"/>
@@ -26,18 +40,21 @@
         <input id="data"type="date" asp-for="DateSortie"/>
 
         <p>Version :</p>
-        <input type="number" asp-for="Version"/>
-            <p>Acteurs :</p>
-            <select id="selectActor">
-                @foreach (var acteur in Model?.Acteurs)
-                {
-                    <option value=@acteur.Nom>@acteur.Nom @acteur.Prenom</option>
-                }
-            </select>
+        <input type="text" asp-for="Version"/>
+        <p>Acteurs :</p>
+        <select id="selectActor">
+            @foreach (var acteur in Model?.Acteurs)
+            {
+                <option id=@acteur.Id value=@acteur.Nom>@acteur.Nom @acteur.Prenom</option>
+            }
+        </select>
         <a onclick="handleAddActor()">Ajouter acteur</a>
         <div id="listActeurs"></div>
         <input type="submit" value="Submit"/>
-        <input asp-for="ActeursToAdd" id="test" type="hidden"/>
+        <input asp-for="ActeursToAdd" id="acteursHidden" type="hidden"/>
+        <input asp-for="RealisateursToAdd" id="realHidden" type="hidden"/>
+        <input asp-for="ScenaristesToAdd" id="scenaHidden" type="hidden"/>
+
 
     </div>
 </form>

@@ -79,10 +79,9 @@ namespace WebApplication.Controllers
                     Prenom = formModel.Scenariste.ToString().Split(" ")[0],
                 },*/
             };
-            brRepository.AddBluRay(formModel);
+            brRepository.AddBluRay(blurayToAdd);
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
-            //Response.Redirect("/Home/Index");
             return View("Index",model);
         }
 
@@ -91,17 +90,14 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        public void AddActor(AddBlurayViewModel modelForm)
-        {
-            acteurs.Add(new Personne
-            {
-            });
-        }
+
 
         public IActionResult AddView()
         {
             AddBlurayViewModel model = new AddBlurayViewModel();
-            model.Acteurs = pRepository.GetActeurs();
+            model.Acteurs = pRepository.GetPersonnes();
+            model.Realisateurs = model.Acteurs;
+            model.Scenaristes = model.Acteurs;
             return View(model);
         }
 

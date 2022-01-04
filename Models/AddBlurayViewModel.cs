@@ -21,12 +21,22 @@ namespace WebApplication.Models
         /// <summary>
         /// Le scénariste du film
         /// </summary>
-        public Personne Scenariste  { get; set; }
+        public List<Personne> Scenaristes  { get; set; }
+        
+        /// <summary>
+        /// Le scénariste du film
+        /// </summary>
+        public List<Personne> ScenaristesToAdd  { get; set; }
 
         /// <summary>
         /// Le réalisateur du film
         /// </summary>
-        public Personne Realisateur { get; set; }
+        public List<Personne> Realisateurs { get; set; }
+        
+        /// <summary>
+        /// Le réalisateur du film
+        /// </summary>
+        public List<Personne> RealisateursToAdd { get; set; }
 
         /// <summary>
         /// Les acteurs du film
