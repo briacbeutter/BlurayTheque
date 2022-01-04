@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using WebApplication.DTOs;
 
@@ -46,6 +47,46 @@ namespace WebApplication.Repositories
             }
 
             return realisateur;
+        }
+
+        public List<Personne> GetActeurs()
+        {
+            MySqlConnection connection = null;
+            List<Personne> acteurs = new List<Personne>();
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=briac;Password=briac;Database=bluray");
+                connection.Open();
+
+                MySqlCommand command =
+                    new MySqlCommand(
+                        "SELECT p.* FROM personne p WHERE p.profession = 'Acteur'",
+                        connection);
+                MySqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                {
+                    acteurs.Add(new Personne
+                    {
+                        Id = long.Parse(dr[0].ToString()),
+                        Nom = dr[1].ToString(),
+                        Prenom = dr[2].ToString(),
+                        DateNaissance = (DateTime) dr[3],
+                        Nationalite = dr[4].ToString()
+                    });
+                }
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+
+            return acteurs;
         }
     }
 }

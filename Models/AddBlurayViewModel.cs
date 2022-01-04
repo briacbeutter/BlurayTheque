@@ -6,13 +6,13 @@ using WebApplication.DTOs;
 namespace WebApplication.Models
 
 {
-    public class BlurayViewModel
+    public class AddBlurayViewModel
     {
+
         /// <summary>
         /// Identifiant technique
         /// </summary>
         public int Id { get; set; }
-
         /// <summary>
         /// Titre du film contenu sur le Blu-Ray
         /// </summary>
@@ -32,6 +32,11 @@ namespace WebApplication.Models
         /// Les acteurs du film
         /// </summary>
         public List<Personne> Acteurs { get; set; }
+        
+        /// <summary>
+        /// Les acteurs du film
+        /// </summary>
+        public List<int> ActeursToAdd { get; set; }
 
         /// <summary>
         /// Durée du film

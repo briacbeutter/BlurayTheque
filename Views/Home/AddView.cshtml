@@ -1,5 +1,6 @@
 @using Microsoft.JSInterop
-@model WebApplication.Models.BlurayViewModel
+@using WebApplication.DTOs
+@model WebApplication.Models.AddBlurayViewModel
 
 
 @{
@@ -22,12 +23,21 @@
         <input type="time" asp-for="Duree"/>
 
         <p>Date de sortie :</p>
-        <input type="date" asp-for="DateSortie"/>
+        <input id="data"type="date" asp-for="DateSortie"/>
 
         <p>Version :</p>
         <input type="number" asp-for="Version"/>
-
+            <p>Acteurs :</p>
+            <select id="selectActor">
+                @foreach (var acteur in Model?.Acteurs)
+                {
+                    <option value=@acteur.Nom>@acteur.Nom @acteur.Prenom</option>
+                }
+            </select>
+        <a onclick="handleAddActor()">Ajouter acteur</a>
+        <div id="listActeurs"></div>
         <input type="submit" value="Submit"/>
+        <input asp-for="ActeursToAdd" id="test" type="hidden"/>
 
     </div>
 </form>

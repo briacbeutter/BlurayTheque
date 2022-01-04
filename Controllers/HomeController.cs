@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,17 +14,21 @@ namespace WebApplication.Controllers
 
         private readonly BlurayRepository brRepository;
         private readonly PersonneRepository pRepository;
+        public List<Personne> acteurs;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             brRepository = new BlurayRepository();
+            pRepository = new PersonneRepository();
         }
 
         public IActionResult Index()
         {
             IndexViewModel model = new IndexViewModel();
+            
             model.Blurays = brRepository.GetListeBluRay();
+            
             for(int i=0;i<model.Blurays.Count;i++)
             {
                 model.Blurays[i].Realisateur = pRepository.GetRealisateur(model.Blurays[i].Id);
@@ -54,11 +59,11 @@ namespace WebApplication.Controllers
             return View("Index",model);
         }
         
-        public IActionResult AddBluray(BlurayViewModel formModel)
+        public IActionResult AddBluray(AddBlurayViewModel formModel)
         {
             Bluray blurayToAdd = new Bluray
             {
-                Id = 8,
+                Id = formModel.Id,
                 Titre = formModel.Titre,
                 DateSortie = formModel.DateSortie,
                 Version = "Courte",
@@ -86,9 +91,18 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        public void AddActor(AddBlurayViewModel modelForm)
+        {
+            acteurs.Add(new Personne
+            {
+            });
+        }
+
         public IActionResult AddView()
         {
-            return View();
+            AddBlurayViewModel model = new AddBlurayViewModel();
+            model.Acteurs = pRepository.GetActeurs();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
