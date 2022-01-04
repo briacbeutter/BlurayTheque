@@ -28,10 +28,11 @@ namespace WebApplication.Controllers
             IndexViewModel model = new IndexViewModel();
             
             model.Blurays = brRepository.GetListeBluRay();
-            
-            for(int i=0;i<model.Blurays.Count;i++)
+            foreach(var var in model.Blurays)
             {
-                model.Blurays[i].Realisateur = pRepository.GetRealisateur(model.Blurays[i].Id);
+                var.Realisateur = pRepository.GetRealisateur(var.Id);
+                var.Scenariste = pRepository.GetScenariste(var.Id);
+                var.Acteurs = pRepository.GetActeursByFilm(var.Id);
             }
             return View(model);
         }
@@ -42,19 +43,19 @@ namespace WebApplication.Controllers
             model.Blurays = brRepository.GetListeBluRay();
             model.SelectedBluray = model.Blurays.Find(x => x.Id == id);
             if (model.SelectedBluray != null)
+            {
                 model.SelectedBluray.Realisateur = pRepository.GetRealisateur(id);
+                model.SelectedBluray.Scenariste = pRepository.GetScenariste(id);
+                model.SelectedBluray.Acteurs = pRepository.GetActeursByFilm(id);
+            }
+
             return View(model);
         }
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            
             IndexViewModel model = new IndexViewModel();
-            //brRepository.DeleteBluRay(id);
+            brRepository.DeleteBluRay(id);
             model.Blurays = brRepository.GetListeBluRay();
             return View("Index",model);
         }
@@ -66,7 +67,6 @@ namespace WebApplication.Controllers
                 Id = formModel.Id,
                 Titre = formModel.Titre,
                 DateSortie = formModel.DateSortie,
-                Version = "Courte",
                 Duree = formModel.Duree,
                 /*Realisateur = new Personne
                 {
@@ -79,7 +79,7 @@ namespace WebApplication.Controllers
                     Prenom = formModel.Scenariste.ToString().Split(" ")[0],
                 },*/
             };
-            //brRepository.AddBluRay(blurayToAdd);
+            brRepository.AddBluRay(formModel);
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
             //Response.Redirect("/Home/Index");

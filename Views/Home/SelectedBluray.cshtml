@@ -13,8 +13,15 @@
             @Model.SelectedBluray.Titre
         </h1>
         <h2 style="color: rgba(0,0,0,0.4);font-size: 12px;position: relative;top:-40px">
-            @Model.SelectedBluray.Realisateur.Prenom @Model.SelectedBluray.Realisateur.Nom
+           @* @Model.SelectedBluray.Realisateur.Prenom @Model.SelectedBluray.Realisateur.Nom *@
         </h2>
+        @*<div style="font-size: 12px;position: relative;top:-40px;">
+                    Scenariste(s) :
+                    @foreach (var act in Model.SelectedBluray.Scenariste)
+                    {
+                        <div>@act.Prenom @act.Nom</div>
+                    }
+                </div>*@
         <div style="display: flex;flex-direction: row;justify-content: space-around;position: relative;top: -25px">
             <div style="display: flex;flex-direction: column;justify-content: center;">
                 <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Date de sortie</p>
@@ -29,8 +36,7 @@
             Acteurs :
             @foreach (var act in Model.SelectedBluray.Acteurs)
             {
-                <div>Nom : @act.Nom</div>
-                <div>Prenom : @act.Prenom</div>
+                <div>@act.Prenom @act.Nom</div>
             }
         </div>*@
         <div class="button-del">
