@@ -38,8 +38,14 @@ namespace WebApplication.Controllers
             {
                 if (bluray.Id == route.IdBluray)
                 {
-                    brRepository.SetEmprunteBluray(bluray.Id);
-                    return new CreatedResult($"{route.IdBluray}", null);
+                    if (bluray.Disponible)
+                    {
+                        brRepository.SetEmprunteBluray(bluray.Id);
+                        return new CreatedResult($"{route.IdBluray}", null);
+                    }
+
+                    return new BadRequestObjectResult(
+                        "Le Bluray que vous souhaitez emprunter est déjà emprunté par une autre personne");
                 }
             }
             return new NotFoundObjectResult($"{route.IdBluray}");
@@ -52,8 +58,12 @@ namespace WebApplication.Controllers
             {
                 if (bluray.Id == route.IdBluray)
                 {
-                    brRepository.SetRenduBluray(bluray.Id);
-                    return new AcceptedResult($"{route.IdBluray}", null);
+                    if (!bluray.Disponible)
+                    {
+                        brRepository.SetRenduBluray(bluray.Id);
+                        return new AcceptedResult($"{route.IdBluray}", null);
+                    }
+                    return new BadRequestObjectResult("Le Bluray que vous souhaitez rendre a déjà été rendu");
                 }
             }
             return new NotFoundObjectResult($"{route.IdBluray}");

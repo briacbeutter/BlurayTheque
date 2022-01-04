@@ -169,5 +169,89 @@ namespace WebApplication.Repositories
 
         return acteurs;
         }
+        
+        public void AddActeursByFilm(int idFilm, List<int> acteurs)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+
+                foreach (var acteur in acteurs)
+                {
+                    MySqlCommand command =
+                        new MySqlCommand(
+                            "INSERT INTO `bluRayActeurs`(`idBluray`, `idActeur`) VALUES (?1, ?2)", connection);
+                    command.Parameters.AddWithValue("1", idFilm);
+                    command.Parameters.AddWithValue("2", acteur);
+                    command.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        
+        public void AddScenaristeByFilm(int idFilm, List<int> scenaristes)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+
+                foreach (var scenariste in scenaristes)
+                {
+                    MySqlCommand command =
+                        new MySqlCommand(
+                            "INSERT INTO `bluRayActeurs`(`idBluray`, `idActeur`) VALUES (?1, ?2)", connection);
+                    command.Parameters.AddWithValue("1", idFilm);
+                    command.Parameters.AddWithValue("2", scenariste);
+                    command.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        
+        public void AddRealisateurByFilm(int idFilm, List<int> realisateurs)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+
+                foreach (var realisateur in realisateurs)
+                {
+                    MySqlCommand command =
+                        new MySqlCommand(
+                            "INSERT INTO `bluRayActeurs`(`idBluray`, `idActeur`) VALUES (?1, ?2)", connection);
+                    command.Parameters.AddWithValue("1", idFilm);
+                    command.Parameters.AddWithValue("2", realisateur);
+                    command.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

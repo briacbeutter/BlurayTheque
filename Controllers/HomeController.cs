@@ -67,19 +67,10 @@ namespace WebApplication.Controllers
                 Id = formModel.Id,
                 Titre = formModel.Titre,
                 DateSortie = formModel.DateSortie,
-                Duree = formModel.Duree,
-                /*Realisateur = new Personne
-                {
-                    Nom = formModel.Realisateur.ToString().Split(" ")[1],
-                    Prenom = formModel.Realisateur.ToString().Split(" ")[0],
-                },
-                Scenariste = new Personne
-                {
-                    Nom = formModel.Scenariste.ToString().Split(" ")[1],
-                    Prenom = formModel.Scenariste.ToString().Split(" ")[0],
-                },*/
+                Duree = formModel.Duree
             };
             brRepository.AddBluRay(formModel);
+            pRepository.AddActeursByFilm(formModel.Id, formModel.ActeursToAdd);
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
             //Response.Redirect("/Home/Index");
