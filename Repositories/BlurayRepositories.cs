@@ -24,13 +24,13 @@ namespace WebApplication.Repositories
                 connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 // Define a query returning a single row result set
-                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image FROM bluray b", connection);
+                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image, disponible FROM bluray b", connection);
                 // Execute the query and obtain a result set
                 MySqlDataReader dr = command.ExecuteReader();
-
                 // Output rows
                 while (dr.Read())
                 {
+                    Console.Write(dr[6].ToString());
                     listBluRay.Add(new Bluray
                     {
                         Id = int.Parse(dr[0].ToString()),
@@ -38,7 +38,8 @@ namespace WebApplication.Repositories
                         DateSortie = (DateTime) dr[2],
                         Duree = TimeSpan.Parse(dr[3].ToString()),
                         Version = dr[4].ToString(),
-                        image = dr[5].ToString()
+                        Image = dr[5].ToString(),
+                        Disponible = (!dr[6].ToString().Equals("False"))
                     });
                 }
             }
@@ -59,7 +60,7 @@ namespace WebApplication.Repositories
                 connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 
-                MySqlCommand command = new MySqlCommand("INSERT INTO `bluray`(`id`, `titre`, `duree`, `dateSortie`, `version`, `image`) VALUES (?1, ?2, ?3, ?4, ?5,'https://fr.web.img6.acsta.net/r_654_368/newsv7/15/10/19/21/14/237930.jpg')", connection);
+                MySqlCommand command = new MySqlCommand("INSERT INTO `bluray`(`id`, `titre`, `duree`, `dateSortie`, `version`, `image`, `disponible`) VALUES (?1, ?2, ?3, ?4, ?5,'https://fr.web.img6.acsta.net/r_654_368/newsv7/15/10/19/21/14/237930.jpg', 1)", connection);
                 command.Parameters.AddWithValue("1", formModel.Id);
                 command.Parameters.AddWithValue("2", formModel.Titre);
                 command.Parameters.AddWithValue("3", formModel.Duree);
@@ -85,6 +86,48 @@ namespace WebApplication.Repositories
                 connection.Open();
                 
                 MySqlCommand command = new MySqlCommand("DELETE FROM bluray WHERE id=?id", connection);
+                command.Parameters.AddWithValue("id", id);
+                command.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        
+        public void SetEmprunteBluray(int id)
+        {
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command = new MySqlCommand("UPDATE bluray SET disponible = 0 WHERE id=?id", connection);
+                command.Parameters.AddWithValue("id", id);
+                command.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        
+        public void SetRenduBluray(int id)
+        {
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command = new MySqlCommand("UPDATE bluray SET disponible = 1 WHERE id=?id", connection);
                 command.Parameters.AddWithValue("id", id);
                 command.ExecuteNonQuery();
 
