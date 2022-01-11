@@ -10,9 +10,42 @@
 <hr/>
 <form method="POST" asp-controller="Home" asp-action="HandleSelectBorrowPerson" >
     <select asp-for="SelectEmprunteur" onchange="this.form.submit()">
-                @foreach (var emprunteur in Model?.Emprunteurs)
-                {
-                    <option id=@emprunteur.Nom value=@emprunteur.BaseUrl>@emprunteur.Nom</option>
-                }
-            </select>
+        @foreach (var emprunteur in Model?.Emprunteurs)
+        {
+            <option id=@emprunteur.Nom value=@emprunteur.BaseUrl>@emprunteur.Nom</option>
+        }
+    </select>
 </form>
+@if (Model.Blurays.Count != 0)
+{
+@foreach (var br in Model?.Blurays)
+{
+    <div>
+        <div class="card-header">
+        </div>
+        <div class="text-center card">
+            <div class="card-avatar">
+            </div>
+            <h1 style="position: relative;top: -40px">
+                @br.Titre
+            </h1>
+            <h2 style="color: rgba(0,0,0,0.4);font-size: 12px;position: relative;top:-40px">
+                @*@br.Realisateur.Prenom @br.Realisateur.Nom*@
+            </h2>
+            <div style="display: flex;flex-direction: row;justify-content: space-around;position: relative;top: -25px">
+                <div style="display: flex;flex-direction: column;justify-content: center;">
+                    <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Date de sortie</p>
+                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;}">@br.DateSortie.ToShortDateString()</p>
+                </div>
+                <div style="display: flex;flex-direction: column;justify-content: center;">
+                    <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Durée</p>
+                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;"></p>
+                </div>
+            </div>
+            <div class="button-consult">
+                <a class="text-button" asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id">Consulter</a>
+            </div>
+        </div>
+    </div>
+}
+}

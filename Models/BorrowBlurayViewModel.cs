@@ -13,7 +13,7 @@ namespace WebApplication.Models
         public List<Emprunteur> Emprunteurs { get; set; }
         
         /// <summary>
-        /// Liste des emprunteurs
+        /// emprunteur sélectionné
         /// </summary>
         public string SelectEmprunteur { get; set; }
         

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ namespace WebApplication.Repositories
             try
             {
                 HttpResponseMessage response = client.GetAsync($"{baseUrl}/BluRays").Result;
+                Console.WriteLine($"{baseUrl}/BluRays");
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
                 result = JsonConvert.DeserializeObject<List<BlurayApi>>(responseBody);
