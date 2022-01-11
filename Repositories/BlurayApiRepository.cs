@@ -5,11 +5,9 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using WebApplication.DTOs;
 
-//TODO ajouter des personnes 0
 //TODO Consulter => afficher les acteurs 0
 //TODO revoir affichage durée/version 0
 
-//TODO ajouter le bluray apres emprunt 1
 //TODO Appel API rendu bluray 3
 //TODO affichage rendu Bluray dans index button 2
 

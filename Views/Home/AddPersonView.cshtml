@@ -7,7 +7,7 @@ ViewData["Title"] = "Add Person Page";
 }
 <h1>Ajouter une personne</h1>
 <hr/>
-<form method="POST" asp-controller="Home" asp-action="AddBluray">
+<form method="POST" asp-controller="Home" asp-action="HandleAddPersonView">
     <div>
         <h6><strong>Nom :</strong></h6>
         <input required type="text" asp-for="Nom"/>
@@ -16,14 +16,14 @@ ViewData["Title"] = "Add Person Page";
         <input required type="text" asp-for="Prenom"/>
 
         <h6><strong>Profession :</strong></h6>
-        <input required type="time" asp-for="Profession"/>
+        <input required type="text" asp-for="Profession"/>
 
         <h6><strong>Date de naissance :</strong></h6>
         <input required id="data" type="date" asp-for="DateNaissance"/>
 
         <h6><strong>Nationalité :</strong></h6>
-        <input required id="text" type="date" asp-for="Nationalite"/>
+        <input required id="text" type="text" asp-for="Nationalite"/>
         
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Ajouter"/>
     </div>
 </form>
