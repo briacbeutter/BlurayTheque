@@ -10,45 +10,45 @@
 <hr/>
 <form method="POST" asp-controller="Home" asp-action="AddBluray">
     <div>
-        <p>Titre :</p>
+        <h6><strong>Titre :</strong></h6>
         <input type="text" asp-for="Titre"/>
 
-        <p>Réalisateur :</p>
+        <h6><strong>Réalisateur :</strong></h6>
         <select id="selectReal">
             @foreach (var real in Model?.Realisateurs)
             {
                 <option id=@real.Id value=@real.Nom>@real.Nom @real.Prenom</option>
             }
         </select>
-        <a onclick="handleAddReal()">Ajouter réalisateur</a>
+        <a style="cursor:pointer;" onclick="handleAddReal()"><span class="plus-small"></span></a>
         <div id="listReal"></div>
 
-        <p>Scénariste :</p>
+        <h6><strong>Scénariste :</strong></h6>
         <select id="selectScenariste">
             @foreach (var scena in Model?.Scenaristes)
             {
                 <option id=@scena.Id value=@scena.Nom>@scena.Nom @scena.Prenom</option>
             }
         </select>
-        <a onclick="handleAddScena()">Ajouter scénariste</a>
+        <a style="cursor:pointer;" onclick="handleAddScena()">Ajouter scénariste</a>
         <div id="listScena"></div>
 
-        <p>Durée :</p>
+        <h6><strong>Durée :</strong></h6>
         <input type="time" asp-for="Duree"/>
 
-        <p>Date de sortie :</p>
+        <h6><strong>Date de sortie :</strong></h6>
         <input id="data"type="date" asp-for="DateSortie"/>
 
-        <p>Version :</p>
+        <h6><strong>Version :</strong></h6>
         <input type="text" asp-for="Version"/>
-        <p>Acteurs :</p>
+        <h6><strong>Acteurs :</strong></h6>
         <select id="selectActor">
             @foreach (var acteur in Model?.Acteurs)
             {
                 <option id=@acteur.Id value=@acteur.Nom>@acteur.Nom @acteur.Prenom</option>
             }
         </select>
-        <a onclick="handleAddActor()">Ajouter acteur</a>
+        <a style="cursor:pointer;" onclick="handleAddActor()">Ajouter acteur</a>
         <div id="listActeurs"></div>
         <input type="submit" value="Submit"/>
         <input asp-for="ActeursToAdd" id="acteursHidden" type="hidden"/>

@@ -14,7 +14,7 @@ function handleAddActor()
     acteurs.push(id)
     document.getElementById("acteursHidden").value = acteurs;
     let divLIst = document.getElementById("listActeurs")
-    console.log(divLIst);
+    console.log(acteurs);
     let newActeur = document.createElement("div");
     let textActeur = document.createTextNode(acteur + "   x");
     newActeur.appendChild(textActeur);
@@ -41,7 +41,7 @@ function handleAddReal()
     let id = $("#selectReal option:selected").attr("id");
     realisateurs.push(id)
     document.getElementById("realHidden").value = realisateurs;
-    console.log("Real" + realisateurs);
+    console.log(realisateurs);
     let divLIst = document.getElementById("listReal")
     let newReal = document.createElement("div");
     let textReal = document.createTextNode(realName + "   x");
@@ -67,7 +67,7 @@ function handleAddScena()
     let id = $("#selectScenariste option:selected").attr("id");
     scenaristes.push(id)
     document.getElementById("scenaHidden").value = scenaristes;
-    console.log("Real" + scenaristes);
+    console.log(scenaristes);
     let divLIst = document.getElementById("listScena")
     let newScena = document.createElement("div");
     let textScena = document.createTextNode(scenaName + "   x");
