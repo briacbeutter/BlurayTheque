@@ -58,6 +58,16 @@ namespace WebApplication.DTOs
         /// </summary>
         public string Version { get; set; }
         
-        public string image { get; set; }
+        /// <summary>
+        /// Affiche du film
+        /// </summary>
+        public string Image { get; set; }
+        
+        /// <summary>
+        /// Disponibilite du film
+        /// </summary>
+        public Boolean Disponible { get; set; }
+        
+        public int Emprunt { get; set; }
     }
 }

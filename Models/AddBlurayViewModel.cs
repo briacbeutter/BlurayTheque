@@ -26,7 +26,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Le scénariste du film
         /// </summary>
-        public List<int> ScenaristesToAdd  { get; set; }
+        public List<string> ScenaristesToAdd  { get; set; }
 
         /// <summary>
         /// Le réalisateur du film
@@ -36,7 +36,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Le réalisateur du film
         /// </summary>
-        public List<int> RealisateursToAdd { get; set; }
+        public List<string> RealisateursToAdd { get; set; }
 
         /// <summary>
         /// Les acteurs du film
@@ -46,7 +46,7 @@ namespace WebApplication.Models
         /// <summary>
         /// Les acteurs du film
         /// </summary>
-        public List<int> ActeursToAdd { get; set; }
+        public List<string> ActeursToAdd { get; set; }
 
         /// <summary>
         /// Durée du film

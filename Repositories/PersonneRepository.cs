@@ -15,7 +15,7 @@ namespace WebApplication.Repositories
 
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
 
                 MySqlCommand command =
@@ -56,7 +56,7 @@ namespace WebApplication.Repositories
 
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
 
                 MySqlCommand command =
@@ -89,7 +89,7 @@ namespace WebApplication.Repositories
 
             return scenariste;
         }
-        
+
         public List<Personne> GetActeursByFilm(int idFilm)
         {
             MySqlConnection connection = null;
@@ -97,7 +97,7 @@ namespace WebApplication.Repositories
 
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
 
                 MySqlCommand command =
@@ -131,85 +131,120 @@ namespace WebApplication.Repositories
             return acteurs;
         }
         
+        public void AddActeursByFilm(int idFilm, int acteur)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command =
+                        new MySqlCommand(
+                            "INSERT INTO `bluRayActeurs`(`idBluray`, `idActeur`) VALUES (?1, ?2)", connection);
+                    command.Parameters.AddWithValue("1", idFilm);
+                    command.Parameters.AddWithValue("2", acteur);
+                    command.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void AddScenaristeByFilm(int idFilm, int scenariste)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command =
+                        new MySqlCommand(
+                            "INSERT INTO `bluRayScenariste`(`idBluray`, `idScenariste`) VALUES (?1, ?2)", connection);
+                    command.Parameters.AddWithValue("1", idFilm);
+                    command.Parameters.AddWithValue("2", scenariste);
+                    command.ExecuteNonQuery();
+                }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void AddRealisateurByFilm(int idFilm, int realisateur)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command =
+                        new MySqlCommand(
+                            "INSERT INTO `bluRayRealisateur`(`idBluray`, `idRealisateur`) VALUES (?1, ?2)", connection);
+                    command.Parameters.AddWithValue("1", idFilm);
+                    command.Parameters.AddWithValue("2", realisateur);
+                    command.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+            
+        }
+
         public List<Personne> GetPersonnes()
         {
-            MySqlConnection connection = null;
-            List<Personne> acteurs = new List<Personne>();
+        MySqlConnection connection = null;
+        List<Personne> acteurs = new List<Personne>();
 
-            try
-            {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
-                connection.Open();
-
-                MySqlCommand command =
-                    new MySqlCommand(
-                        "SELECT p.* FROM personne p",
-                        connection);
-                MySqlDataReader dr = command.ExecuteReader();
-
-                // Output rows
-                while (dr.Read())
-                {
-                    acteurs.Add(new Personne
-                    {
-                        Id = long.Parse(dr[0].ToString()),
-                        Nom = dr[1].ToString(),
-                        Prenom = dr[2].ToString(),
-                        DateNaissance = (DateTime) dr[3],
-                        Nationalite = dr[4].ToString()
-                    });
-                }
-            }
-            finally
-            {
-                if (connection != null)
-                {
-                    connection.Close();
-                }
-            }
-
-            return acteurs;
-        }
-        
-        public Personne GetActeursById(int idActor)
+        try
         {
-            MySqlConnection connection = null;
-            Personne acteur = new Personne();
+            connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+            connection.Open();
 
-            try
+            MySqlCommand command =
+                new MySqlCommand(
+                    "SELECT p.* FROM personne p",
+                    connection);
+            MySqlDataReader dr = command.ExecuteReader();
+
+            // Output rows
+            while (dr.Read())
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
-                connection.Open();
-
-                MySqlCommand command =
-                    new MySqlCommand(
-                        "SELECT p.* FROM personne p WHERE p.id=?identifiant",
-                        connection);
-                command.Parameters.AddWithValue("identifiant", idActor);
-                MySqlDataReader dr = command.ExecuteReader();
-
-                // Output rows
-                while (dr.Read())
+                acteurs.Add(new Personne
                 {
-                    acteur = new Personne
-                    {
-                        Id = long.Parse(dr[0].ToString()),
-                        Nom = dr[1].ToString(),
-                        Prenom = dr[2].ToString(),
-                        DateNaissance = (DateTime) dr[3],
-                        Nationalite = dr[4].ToString()
-                    };
-                }
+                    Id = long.Parse(dr[0].ToString()),
+                    Nom = dr[1].ToString(),
+                    Prenom = dr[2].ToString(),
+                    DateNaissance = (DateTime) dr[3],
+                    Nationalite = dr[4].ToString()
+                });
             }
-            finally
+        }
+        finally
+        {
+            if (connection != null)
             {
-                if (connection != null)
-                {
-                    connection.Close();
-                }
+                connection.Close();
             }
+        }
 
-            return acteur;
+        return acteurs;
         }
     }
 }

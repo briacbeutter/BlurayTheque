@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication.DTOs;
@@ -15,8 +16,7 @@ namespace WebApplication.Controllers
 
         private readonly BlurayRepository brRepository;
         private readonly PersonneRepository pRepository;
-        public List<Personne> acteurs;
-
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -69,22 +69,26 @@ namespace WebApplication.Controllers
 
             Bluray blurayToAdd = new Bluray
             {
-                Id = formModel.Id,
                 Titre = formModel.Titre,
                 DateSortie = formModel.DateSortie,
                 Duree = formModel.Duree,
-                /*Realisateur = new Personne
-                {
-                    Nom = formModel.Realisateur.ToString().Split(" ")[1],
-                    Prenom = formModel.Realisateur.ToString().Split(" ")[0],
-                },
-                Scenariste = new Personne
-                {
-                    Nom = formModel.Scenariste.ToString().Split(" ")[1],
-                    Prenom = formModel.Scenariste.ToString().Split(" ")[0],
-                },*/
+                Version = formModel.Version
             };
             brRepository.AddBluRay(blurayToAdd);
+            int id = brRepository.GetLastBluRay().Id;
+            foreach (var acteurId in formModel.ActeursToAdd)
+            {
+                pRepository.AddActeursByFilm(id, int.Parse(acteurId));
+            }
+            foreach (var realId in formModel.RealisateursToAdd)
+            {
+                Console.WriteLine(realId);
+                pRepository.AddRealisateurByFilm(id, int.Parse(realId));
+            }
+            foreach (var scenaId in formModel.ScenaristesToAdd)
+            {
+                pRepository.AddScenaristeByFilm(id, int.Parse(scenaId));
+            }
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
             return View("Index",model);
