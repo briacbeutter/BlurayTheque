@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace WebApplication.Controllers
         public IActionResult Index()
         {
             IndexViewModel model = new IndexViewModel();
-            
+
             model.Blurays = brRepository.GetListeBluRay();
             foreach(var var in model.Blurays)
             {
@@ -62,6 +63,10 @@ namespace WebApplication.Controllers
         
         public IActionResult AddBluray(AddBlurayViewModel formModel)
         {
+            Console.WriteLine(formModel.ActeursToAdd[0]+"," + formModel.ActeursToAdd[1]);
+            Console.WriteLine(formModel.RealisateursToAdd[0]+"," + formModel.RealisateursToAdd[1]);
+            Console.WriteLine(formModel.ScenaristesToAdd[0]+"," + formModel.ScenaristesToAdd[1]);
+
             Bluray blurayToAdd = new Bluray
             {
                 Id = formModel.Id,
