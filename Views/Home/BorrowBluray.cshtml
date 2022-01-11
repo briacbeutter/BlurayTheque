@@ -42,9 +42,18 @@
                     <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;"></p>
                 </div>
             </div>
-            <div class="button-consult">
-                <a class="text-button" asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id">Consulter</a>
-            </div>
+            @if (@br.Disponible)
+            {
+                <div class="button-emprunt-valid">
+                    <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId" asp-route-id="@br.Id">Emprunter</a>
+                </div>
+            }
+            else
+            {
+                <div class="button-emprunt-unvalid">
+                    <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId" asp-route-id="@br.Id">Déjà emprunté</a>
+                </div>
+            }
         </div>
     </div>
 }

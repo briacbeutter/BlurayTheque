@@ -85,6 +85,34 @@ button.accept-policy {
     padding: 8px;
 }
 
+.button-emprunt-valid{
+    background-color: darkgreen;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height: 40px;
+    text-align: center;
+    margin-top: 5px;
+    color: white;
+    padding: 8px;
+}
+
+.button-emprunt-unvalid{
+    background-color: grey;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height: 40px;
+    text-align: center;
+    margin-top: 5px;
+    color: white;
+    padding: 8px;
+}
+
 .card-avatar {
     border-radius: 80px;
     background-color: grey;

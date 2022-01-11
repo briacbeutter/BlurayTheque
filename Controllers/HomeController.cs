@@ -143,7 +143,14 @@ namespace WebApplication.Controllers
 
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             borrowBlurayViewModel.Blurays = blurays;
-            borrowBlurayViewModel.Emprunteurs = emprunteurs;
+            borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
+            return View("BorrowBluray", borrowBlurayViewModel);
+        }
+
+        public IActionResult BorrowBlurayWithId(int id)
+        {
+            BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
+            borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
             return View("BorrowBluray", borrowBlurayViewModel);
         }
 
