@@ -16,11 +16,12 @@
         }
     </select>
 </form>
+@if (Model.Blurays.Count != 0)
+{
 @foreach (var br in Model?.Blurays)
 {
     <div>
         <div class="card-header">
-            <img src="@br.Image" style="width: fit-content; height: fit-content"/>
         </div>
         <div class="text-center card">
             <div class="card-avatar">
@@ -38,7 +39,7 @@
                 </div>
                 <div style="display: flex;flex-direction: column;justify-content: center;">
                     <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Durée</p>
-                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@br.Duree.ToString()</p>
+                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;"></p>
                 </div>
             </div>
             <div class="button-consult">
@@ -46,4 +47,5 @@
             </div>
         </div>
     </div>
+}
 }

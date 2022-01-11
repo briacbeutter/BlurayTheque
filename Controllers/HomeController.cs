@@ -130,15 +130,20 @@ namespace WebApplication.Controllers
             List<Emprunteur> emprunteurs = eRepository.getBaseUrl();
             BorrowBlurayViewModel brBlurayViewModel = new BorrowBlurayViewModel();
             brBlurayViewModel.Emprunteurs = emprunteurs;
+            brBlurayViewModel.Blurays = new List<BlurayApi>();
             return View(brBlurayViewModel);
         }
 
         public IActionResult HandleSelectBorrowPerson(BorrowBlurayViewModel formModel)
         {
             //call api with formModel.selectEmprunteur
+            Console.WriteLine(formModel.SelectEmprunteur);
             List<BlurayApi> blurays = brApiRepository.GetBluRays(formModel.SelectEmprunteur);
+            List<Emprunteur> emprunteurs = eRepository.getBaseUrl();
+
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             borrowBlurayViewModel.Blurays = blurays;
+            borrowBlurayViewModel.Emprunteurs = emprunteurs;
             return View("BorrowBluray", borrowBlurayViewModel);
         }
 
