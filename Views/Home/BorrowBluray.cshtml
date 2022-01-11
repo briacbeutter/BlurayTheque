@@ -9,13 +9,10 @@
 <h1>Emprunter un Bluray :</h1>
 <hr/>
 <form method="POST" asp-controller="Home" asp-action="HandleSelectBorrowPerson" >
-    <select asp-for="voisinSelect" onchange="this.form.submit()">
-        <option value="1">Voisin 1</option>
-        <option value="2">Voisin 2</option>
-        <option value="3">Voisin 3</option>
-        <option value="4">Voisin 4</option>
-    </select>
+    <select asp-for="SelectEmprunteur" onchange="this.form.submit()">
+                @foreach (var emprunteur in Model?.Emprunteurs)
+                {
+                    <option id=@emprunteur.Nom value=@emprunteur.BaseUrl>@emprunteur.Nom</option>
+                }
+            </select>
 </form>
-<div>
-    @Model?.voisins
-</div>

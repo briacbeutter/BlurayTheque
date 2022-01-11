@@ -16,12 +16,14 @@ namespace WebApplication.Controllers
 
         private readonly BlurayRepository brRepository;
         private readonly PersonneRepository pRepository;
+        private readonly EmpruntRepository eRepository;
         
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             brRepository = new BlurayRepository();
             pRepository = new PersonneRepository();
+            eRepository = new EmpruntRepository();
         }
 
         public IActionResult Index()
@@ -63,10 +65,6 @@ namespace WebApplication.Controllers
         
         public IActionResult AddBluray(AddBlurayViewModel formModel)
         {
-            Console.WriteLine(formModel.ActeursToAdd[0]+"," + formModel.ActeursToAdd[1]);
-            Console.WriteLine(formModel.RealisateursToAdd[0]+"," + formModel.RealisateursToAdd[1]);
-            Console.WriteLine(formModel.ScenaristesToAdd[0]+"," + formModel.ScenaristesToAdd[1]);
-
             Bluray blurayToAdd = new Bluray
             {
                 Titre = formModel.Titre,
@@ -124,14 +122,20 @@ namespace WebApplication.Controllers
         
         public IActionResult BorrowBluray()
         {
-            return View();
+            List<string> noms = null;
+            List<string> baseUrls = null;
+
+            List<Emprunteur> emprunteurs = eRepository.getBaseUrl();
+            BorrowBlurayViewModel brBlurayViewModel = new BorrowBlurayViewModel();
+            brBlurayViewModel.Emprunteurs = emprunteurs;
+            return View(brBlurayViewModel);
         }
 
         public IActionResult HandleSelectBorrowPerson(BorrowBlurayViewModel formModel)
         {
-            Console.WriteLine(formModel.voisinSelect);
+            //call api with formModel.selectEmprunteur
             BorrowBlurayViewModel brBlurayViewModel = new BorrowBlurayViewModel();
-            brBlurayViewModel.voisins = formModel.voisinSelect;
+
             return View("BorrowBluray",brBlurayViewModel);
         }
 

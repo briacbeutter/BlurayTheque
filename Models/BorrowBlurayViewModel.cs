@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using WebApplication.DTOs;
 
 namespace WebApplication.Models
 {
@@ -6,14 +8,14 @@ namespace WebApplication.Models
     {
         
         /// <summary>
-        /// Liste des voisins
+        /// Liste des emprunteurs
         /// </summary>
-        public string voisins { get; set; }
+        public List<Emprunteur> Emprunteurs { get; set; }
         
         /// <summary>
-        /// Voisins select
+        /// Liste des emprunteurs
         /// </summary>
-        public string voisinSelect { get; set; }
-        
+        public string SelectEmprunteur { get; set; }
+
     }
 }
