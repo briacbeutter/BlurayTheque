@@ -16,6 +16,10 @@ namespace WebApplication.Models
         /// Liste des emprunteurs
         /// </summary>
         public string SelectEmprunteur { get; set; }
-
+        
+        /// <summary>
+        /// Liste des blurays empruntable
+        /// </summary>
+        public List<BlurayApi> Blurays { get; set; }
     }
 }

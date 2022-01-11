@@ -17,6 +17,7 @@ namespace WebApplication.Controllers
         private readonly BlurayRepository brRepository;
         private readonly PersonneRepository pRepository;
         private readonly EmpruntRepository eRepository;
+        private readonly BlurayApiRepository brApiRepository;
         
         public HomeController(ILogger<HomeController> logger)
         {
@@ -24,6 +25,7 @@ namespace WebApplication.Controllers
             brRepository = new BlurayRepository();
             pRepository = new PersonneRepository();
             eRepository = new EmpruntRepository();
+            brApiRepository = new BlurayApiRepository();
         }
 
         public IActionResult Index()
@@ -134,9 +136,10 @@ namespace WebApplication.Controllers
         public IActionResult HandleSelectBorrowPerson(BorrowBlurayViewModel formModel)
         {
             //call api with formModel.selectEmprunteur
-            BorrowBlurayViewModel brBlurayViewModel = new BorrowBlurayViewModel();
-
-            return View("BorrowBluray",brBlurayViewModel);
+            List<BlurayApi> blurays = brApiRepository.GetBluRays(formModel.SelectEmprunteur);
+            BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
+            borrowBlurayViewModel.Blurays = blurays;
+            return View("BorrowBluray", borrowBlurayViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
