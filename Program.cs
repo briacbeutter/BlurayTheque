@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +14,23 @@ namespace WebApplication
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var hostUrl = "http://172.23.5.198:5001"; //configuration["hosturl"]; 
+
+            var configuration = new ConfigurationBuilder().AddCommandLine(args).Build();
+ 
+
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .UseUrls(hostUrl)  
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
+                .UseStartup<Startup>()
+                .UseConfiguration(configuration)
+                .Build();
+
+ 
+
+            host.Run(); 
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
