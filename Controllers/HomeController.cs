@@ -109,6 +109,19 @@ namespace WebApplication.Controllers
             model.Scenaristes = model.Acteurs;
             return View(model);
         }
+        
+        public IActionResult BorrowBluray()
+        {
+            return View();
+        }
+
+        public IActionResult HandleSelectBorrowPerson(BorrowBlurayViewModel formModel)
+        {
+            Console.WriteLine(formModel.voisinSelect);
+            BorrowBlurayViewModel brBlurayViewModel = new BorrowBlurayViewModel();
+            brBlurayViewModel.voisins = formModel.voisinSelect;
+            return View("BorrowBluray",brBlurayViewModel);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

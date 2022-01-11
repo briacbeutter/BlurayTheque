@@ -27,7 +27,7 @@ namespace WebApplication.Models
         /// Le scénariste du film
         /// </summary>
         public List<string> ScenaristesToAdd  { get; set; }
-
+        
         /// <summary>
         /// Le réalisateur du film
         /// </summary>
