@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication.DTOs;
@@ -14,8 +16,7 @@ namespace WebApplication.Controllers
 
         private readonly BlurayRepository brRepository;
         private readonly PersonneRepository pRepository;
-        public List<Personne> acteurs;
-
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -64,16 +65,28 @@ namespace WebApplication.Controllers
         {
             Bluray blurayToAdd = new Bluray
             {
-                Id = formModel.Id,
                 Titre = formModel.Titre,
                 DateSortie = formModel.DateSortie,
-                Duree = formModel.Duree
+                Duree = formModel.Duree,
+                Version = formModel.Version
             };
-            brRepository.AddBluRay(formModel);
-            pRepository.AddActeursByFilm(formModel.Id, formModel.ActeursToAdd);
+            brRepository.AddBluRay(blurayToAdd);
+            int id = brRepository.GetLastBluRay().Id;
+            foreach (var acteurId in formModel.ActeursToAdd)
+            {
+                pRepository.AddActeursByFilm(id, int.Parse(acteurId));
+            }
+            foreach (var realId in formModel.RealisateursToAdd)
+            {
+                Console.WriteLine(realId);
+                pRepository.AddRealisateurByFilm(id, int.Parse(realId));
+            }
+            foreach (var scenaId in formModel.ScenaristesToAdd)
+            {
+                pRepository.AddScenaristeByFilm(id, int.Parse(scenaId));
+            }
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
-            //Response.Redirect("/Home/Index");
             return View("Index",model);
         }
 
@@ -82,17 +95,14 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        public void AddActor(AddBlurayViewModel modelForm)
-        {
-            acteurs.Add(new Personne
-            {
-            });
-        }
+
 
         public IActionResult AddView()
         {
             AddBlurayViewModel model = new AddBlurayViewModel();
-            model.Acteurs = pRepository.GetActeurs();
+            model.Acteurs = pRepository.GetPersonnes();
+            model.Realisateurs = model.Acteurs;
+            model.Scenaristes = model.Acteurs;
             return View(model);
         }
 
