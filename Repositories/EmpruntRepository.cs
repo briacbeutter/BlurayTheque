@@ -15,7 +15,7 @@ namespace WebApplication.Repositories
 
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
                 connection.Open();
 
                 MySqlCommand command =

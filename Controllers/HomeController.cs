@@ -143,13 +143,21 @@ namespace WebApplication.Controllers
             
             borrowBlurayViewModel.Blurays = blurays;
             borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
+            borrowBlurayViewModel.SelectEmprunteur = formModel.SelectEmprunteur;
             return View("BorrowBluray", borrowBlurayViewModel);
         }
 
-        public IActionResult BorrowBlurayWithId(int id)
+        public IActionResult BorrowBlurayWithId(string id)
         {
+            string obj = id.Replace("%2F", "/").Replace("[", "").Replace("]", "");
+            string[] tableau = obj.Split(',');
+            
+            Console.WriteLine(tableau[0] + " : " + tableau[1]);
+            brApiRepository.EmprunterBluray(tableau[1], int.Parse(tableau[0]));
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
+            borrowBlurayViewModel.Blurays = new List<BlurayApi>();
+
             return View("BorrowBluray", borrowBlurayViewModel);
         }
 

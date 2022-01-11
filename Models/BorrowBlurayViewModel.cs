@@ -21,5 +21,6 @@ namespace WebApplication.Models
         /// Liste des blurays empruntable
         /// </summary>
         public List<BlurayApi> Blurays { get; set; }
+        
     }
 }

@@ -8,7 +8,7 @@
 }
 <h1>Emprunter un Bluray :</h1>
 <hr/>
-<form method="POST" asp-controller="Home" asp-action="HandleSelectBorrowPerson" >
+<form method="POST" asp-controller="Home" asp-action="HandleSelectBorrowPerson">
     <select asp-for="SelectEmprunteur" onchange="this.form.submit()">
         @foreach (var emprunteur in Model?.Emprunteurs)
         {
@@ -16,8 +16,9 @@
         }
     </select>
 </form>
-@if (Model.Blurays.Count != 0)
-{
+<div class="content">
+    @if (Model.Blurays.Count != 0)
+    {
 @foreach (var br in Model?.Blurays)
 {
     <div>
@@ -38,23 +39,24 @@
                     <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;}">@br.DateSortie.ToShortDateString()</p>
                 </div>
                 <div style="display: flex;flex-direction: column;justify-content: center;">
-                    <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Durée</p>
-                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;"></p>
+                    <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Version</p>
+                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@br.Version</p>
                 </div>
             </div>
             @if (@br.Disponible)
             {
-                <div class="button-emprunt-valid">
-                    <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId" asp-route-id="@br.Id">Emprunter</a>
-                </div>
+                    <div class="button-emprunt-valid">
+                        <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId" asp-route-id="[@br.Id,@Model.SelectEmprunteur]">Emprunter</a>
+                    </div>
             }
             else
             {
                 <div class="button-emprunt-unvalid">
-                    <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId" asp-route-id="@br.Id">Déjà emprunté</a>
+                    <p class="text-button">Déjà emprunté</p>
                 </div>
             }
         </div>
     </div>
 }
-}
+    }
+</div>
