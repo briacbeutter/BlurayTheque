@@ -39,5 +39,15 @@ namespace WebApplication.Models
 
             return new InfoBlurayEmpruntViewModel {Id = dto.Id, Titre = dto.Titre, Version = dto.Version, DateSortie = dto.DateSortie, Disponible = dto.Disponible};
         }
+        
+        public static InfoBlurayEmpruntViewModel ToModel(BlurayApi dto)
+        {
+            if (dto == null)
+            {
+                return null;
+            }
+
+            return new InfoBlurayEmpruntViewModel {Id = dto.Id, Titre = dto.Titre, Version = dto.Version, DateSortie = dto.DateSortie, Disponible = dto.Disponible};
+        }
     }
 }
