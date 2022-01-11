@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication.DTOs;
@@ -76,18 +76,30 @@ namespace WebApplication.Controllers
             };
             brRepository.AddBluRay(blurayToAdd);
             int id = brRepository.GetLastBluRay().Id;
-            foreach (var acteurId in formModel.ActeursToAdd)
+            foreach (var acteurs in formModel.ActeursToAdd)
             {
-                pRepository.AddActeursByFilm(id, int.Parse(acteurId));
+                string[] acteurId = acteurs.Split(",");
+                foreach (var acteur in acteurId)
+                {
+                    pRepository.AddActeursByFilm(id, acteur);
+                }
             }
-            foreach (var realId in formModel.RealisateursToAdd)
+            foreach (var reals in formModel.RealisateursToAdd)
             {
-                Console.WriteLine(realId);
-                pRepository.AddRealisateurByFilm(id, int.Parse(realId));
+                string[] realId = reals.Split(",");
+                foreach (var real in realId)
+                {
+                    pRepository.AddRealisateurByFilm(id, real);
+                }
+                
             }
-            foreach (var scenaId in formModel.ScenaristesToAdd)
+            foreach (var scenas in formModel.ScenaristesToAdd)
             {
-                pRepository.AddScenaristeByFilm(id, int.Parse(scenaId));
+                string[] scenaId = scenas.Split(",");
+                foreach (var scena in scenaId)
+                {
+                    pRepository.AddScenaristeByFilm(id, scena);
+                }
             }
             IndexViewModel model = new IndexViewModel();
             model.Blurays = brRepository.GetListeBluRay();
