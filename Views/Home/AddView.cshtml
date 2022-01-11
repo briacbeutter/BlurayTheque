@@ -11,10 +11,10 @@
 <form method="POST" asp-controller="Home" asp-action="AddBluray">
     <div>
         <h6><strong>Titre :</strong></h6>
-        <input type="text" asp-for="Titre"/>
+        <input required type="text" asp-for="Titre"/>
 
         <h6><strong>Réalisateur :</strong></h6>
-        <select id="selectReal">
+        <select required id="selectReal">
             @foreach (var real in Model?.Realisateurs)
             {
                 <option id=@real.Id value=@real.Nom>@real.Nom @real.Prenom</option>
@@ -24,7 +24,7 @@
         <div id="listReal"></div>
 
         <h6><strong>Scénariste :</strong></h6>
-        <select id="selectScenariste">
+        <select required id="selectScenariste">
             @foreach (var scena in Model?.Scenaristes)
             {
                 <option id=@scena.Id value=@scena.Nom>@scena.Nom @scena.Prenom</option>
@@ -34,15 +34,15 @@
         <div id="listScena"></div>
 
         <h6><strong>Durée :</strong></h6>
-        <input type="time" asp-for="Duree"/>
+        <input required type="time" asp-for="Duree"/>
 
         <h6><strong>Date de sortie :</strong></h6>
-        <input id="data" type="date" asp-for="DateSortie"/>
+        <input required id="data" type="date" asp-for="DateSortie"/>
 
         <h6><strong>Version :</strong></h6>
-        <input type="text" asp-for="Version"/>
+        <input required  type="text" asp-for="Version"/>
         <h6><strong>Acteurs :</strong></h6>
-        <select id="selectActor">
+        <select required id="selectActor">
             @foreach (var acteur in Model?.Acteurs)
             {
                 <option id=@acteur.Id value=@acteur.Nom>@acteur.Nom @acteur.Prenom</option>
