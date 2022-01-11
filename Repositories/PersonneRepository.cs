@@ -131,7 +131,7 @@ namespace WebApplication.Repositories
             return acteurs;
         }
         
-        public void AddActeursByFilm(int idFilm, int acteur)
+        public void AddActeursByFilm(int idFilm, string acteur)
         {
             MySqlConnection connection = null;
 
@@ -144,7 +144,7 @@ namespace WebApplication.Repositories
                         new MySqlCommand(
                             "INSERT INTO `bluRayActeurs`(`idBluray`, `idActeur`) VALUES (?1, ?2)", connection);
                     command.Parameters.AddWithValue("1", idFilm);
-                    command.Parameters.AddWithValue("2", acteur);
+                    command.Parameters.AddWithValue("2", int.Parse(acteur));
                     command.ExecuteNonQuery();
             }
             finally
@@ -156,7 +156,7 @@ namespace WebApplication.Repositories
             }
         }
 
-        public void AddScenaristeByFilm(int idFilm, int scenariste)
+        public void AddScenaristeByFilm(int idFilm, string scenariste)
         {
             MySqlConnection connection = null;
 
@@ -169,7 +169,7 @@ namespace WebApplication.Repositories
                         new MySqlCommand(
                             "INSERT INTO `bluRayScenariste`(`idBluray`, `idScenariste`) VALUES (?1, ?2)", connection);
                     command.Parameters.AddWithValue("1", idFilm);
-                    command.Parameters.AddWithValue("2", scenariste);
+                    command.Parameters.AddWithValue("2", int.Parse(scenariste));
                     command.ExecuteNonQuery();
                 }
             finally
@@ -181,7 +181,7 @@ namespace WebApplication.Repositories
             }
         }
 
-        public void AddRealisateurByFilm(int idFilm, int realisateur)
+        public void AddRealisateurByFilm(int idFilm, string realisateur)
         {
             MySqlConnection connection = null;
 
@@ -194,7 +194,7 @@ namespace WebApplication.Repositories
                         new MySqlCommand(
                             "INSERT INTO `bluRayRealisateur`(`idBluray`, `idRealisateur`) VALUES (?1, ?2)", connection);
                     command.Parameters.AddWithValue("1", idFilm);
-                    command.Parameters.AddWithValue("2", realisateur);
+                    command.Parameters.AddWithValue("2", int.Parse(realisateur));
                     command.ExecuteNonQuery();
             }
             finally
