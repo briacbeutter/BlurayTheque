@@ -139,9 +139,8 @@ namespace WebApplication.Controllers
             //call api with formModel.selectEmprunteur
             Console.WriteLine(formModel.SelectEmprunteur);
             List<BlurayApi> blurays = brApiRepository.GetBluRays(formModel.SelectEmprunteur);
-            List<Emprunteur> emprunteurs = eRepository.getBaseUrl();
-
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
+            
             borrowBlurayViewModel.Blurays = blurays;
             borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
             return View("BorrowBluray", borrowBlurayViewModel);
