@@ -136,8 +136,6 @@ namespace WebApplication.Controllers
 
         public IActionResult HandleSelectBorrowPerson(BorrowBlurayViewModel formModel)
         {
-            //call api with formModel.selectEmprunteur
-            Console.WriteLine(formModel.SelectEmprunteur);
             List<BlurayApi> blurays = brApiRepository.GetBluRays(formModel.SelectEmprunteur);
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             
@@ -152,7 +150,6 @@ namespace WebApplication.Controllers
             string obj = id.Replace("%2F", "/").Replace("[", "").Replace("]", "");
             string[] tableau = obj.Split(',');
             
-            Console.WriteLine(tableau[0] + " : " + tableau[1]);
             brApiRepository.EmprunterBluray(tableau[1], int.Parse(tableau[0]));
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
