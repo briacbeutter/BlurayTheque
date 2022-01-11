@@ -21,7 +21,7 @@ namespace WebApplication.Repositories
 
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 // Define a query returning a single row result set
                 MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image, disponible FROM bluray b", connection);
@@ -59,7 +59,7 @@ namespace WebApplication.Repositories
             
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 
                 MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image FROM bluray b ORDER BY id DESC LIMIT 1", connection);
@@ -89,7 +89,7 @@ namespace WebApplication.Repositories
         {
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 MySqlCommand command = new MySqlCommand("INSERT INTO `bluray`(`titre`, `duree`, `dateSortie`, `version`, `image`, `disponible`) VALUES (?1, ?2, ?3, ?4,'https://fr.web.img6.acsta.net/r_654_368/newsv7/15/10/19/21/14/237930.jpg', 1)", connection);
                 command.Parameters.AddWithValue("1", formModel.Titre);
@@ -112,7 +112,7 @@ namespace WebApplication.Repositories
         {
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 
                 MySqlCommand command = new MySqlCommand("DELETE FROM bluray WHERE id=?id", connection);
@@ -133,7 +133,7 @@ namespace WebApplication.Repositories
         {
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 
                 MySqlCommand command = new MySqlCommand("UPDATE bluray SET disponible = 0 WHERE id=?id", connection);
@@ -154,7 +154,7 @@ namespace WebApplication.Repositories
         {
             try
             {
-                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
                 connection.Open();
                 
                 MySqlCommand command = new MySqlCommand("UPDATE bluray SET disponible = 1 WHERE id=?id", connection);

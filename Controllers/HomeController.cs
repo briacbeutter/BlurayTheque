@@ -139,6 +139,7 @@ namespace WebApplication.Controllers
             List<BlurayApi> blurays = brApiRepository.GetBluRays(formModel.SelectEmprunteur);
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             borrowBlurayViewModel.Blurays = blurays;
+            borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
             return View("BorrowBluray", borrowBlurayViewModel);
         }
 
