@@ -66,6 +66,9 @@ namespace WebApplication
                 endpoints.MapControllerRoute(
                     name: "BorrowBluray",
                     pattern: "{controller=Home}/{action=BorrowBluray}");
+                endpoints.MapControllerRoute(
+                    name: "AddPersonView",
+                    pattern: "{controller=Home}/{action=AddPersonView}");
                 endpoints.MapControllers();
             });
         }

@@ -16,9 +16,10 @@
         }
     </select>
 </form>
-<div class="content">
-    @if (Model.Blurays.Count != 0)
-    {
+<form>
+    <div class="content">
+        @if (Model.Blurays.Count != 0)
+        {
 @foreach (var br in Model?.Blurays)
 {
     <div>
@@ -27,7 +28,7 @@
         <div class="text-center card">
             <div class="card-avatar">
             </div>
-            <h1 style="position: relative;top: -40px">
+            <h1 asp-route-titre="@br.Titre" style="position: relative;top: -40px">
                 @br.Titre
             </h1>
             <h2 style="color: rgba(0,0,0,0.4);font-size: 12px;position: relative;top:-40px">
@@ -36,18 +37,28 @@
             <div style="display: flex;flex-direction: row;justify-content: space-around;position: relative;top: -25px">
                 <div style="display: flex;flex-direction: column;justify-content: center;">
                     <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Date de sortie</p>
-                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;}">@br.DateSortie.ToShortDateString()</p>
+                    <p asp-route-dateSortie="@br.DateSortie" class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;}">@br.DateSortie.ToShortDateString()</p>
                 </div>
                 <div style="display: flex;flex-direction: column;justify-content: center;">
-                    <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Version</p>
-                    <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@br.Version</p>
+                    <p asp-route-emprunteur="@Model.SelectEmprunteur" class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Version</p>
+                    <p asp-route-version="@br.Version" class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@br.Version</p>
                 </div>
             </div>
+                @{
+                    var parms = new Dictionary<string, string>
+                    {
+                        { "id", @br.Id.ToString() },
+                        { "Titre", @br.Titre },
+                        {"Version", @br.Version },
+                        {"DateSortie", @br.DateSortie.ToString() },
+                        {"baseUrl", Model.SelectEmprunteur }
+                    };
+                }
             @if (@br.Disponible)
             {
-                    <div class="button-emprunt-valid">
-                        <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId" asp-route-id="[@br.Id,@Model.SelectEmprunteur]">Emprunter</a>
-                    </div>
+                <div class="button-emprunt-valid">
+                    <a class="text-button" asp-area="" asp-controller="Home" asp-action="BorrowBlurayWithId"  asp-all-route-data="parms">Emprunter</a>
+                </div>
             }
             else
             {
@@ -57,6 +68,9 @@
             }
         </div>
     </div>
+
 }
-    }
-</div>
+        }
+
+    </div>
+</form>

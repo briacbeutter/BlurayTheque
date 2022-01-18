@@ -124,9 +124,6 @@ namespace WebApplication.Controllers
         
         public IActionResult BorrowBluray()
         {
-            List<string> noms = null;
-            List<string> baseUrls = null;
-
             List<Emprunteur> emprunteurs = eRepository.getBaseUrl();
             BorrowBlurayViewModel brBlurayViewModel = new BorrowBlurayViewModel();
             brBlurayViewModel.Emprunteurs = emprunteurs;
@@ -145,23 +142,32 @@ namespace WebApplication.Controllers
             return View("BorrowBluray", borrowBlurayViewModel);
         }
 
-        public IActionResult BorrowBlurayWithId(string id)
+        public IActionResult BorrowBlurayWithId(string id, String titre, String version, String dateSortie, String baseUrl)
         {
-            string obj = id.Replace("%2F", "/").Replace("[", "").Replace("]", "");
-            string[] tableau = obj.Split(',');
-            
-            brApiRepository.EmprunterBluray(tableau[1], int.Parse(tableau[0]));
+            brApiRepository.EmprunterBluray(baseUrl, int.Parse(id));
             BorrowBlurayViewModel borrowBlurayViewModel = new BorrowBlurayViewModel();
             borrowBlurayViewModel.Emprunteurs = eRepository.getBaseUrl();
             borrowBlurayViewModel.Blurays = new List<BlurayApi>();
-
+            brRepository.AddBluRayEmprunte(int.Parse(id), version, titre, DateTime.Parse(dateSortie), baseUrl);
             return View("BorrowBluray", borrowBlurayViewModel);
         }
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ReturnBluray(string id)
+        {
+            List<string> proprietaire = brRepository.GetBluRayEmprunteIdAndUrl(int.Parse(id));
+            
+            brApiRepository.RendreBluray(proprietaire[1], int.Parse(proprietaire[0]));
+            brRepository.DeleteBluRayEmprunte(int.Parse(id));
+            
+            IndexViewModel model = new IndexViewModel();
+            model.Blurays = brRepository.GetListeBluRay();  
+            return View("Index",model);
         }
     }
 }

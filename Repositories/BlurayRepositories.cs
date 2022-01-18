@@ -168,5 +168,77 @@ namespace WebApplication.Repositories
                 }
             }
         }
+
+        public void AddBluRayEmprunte(int id, string version, string titre, DateTime dateSortie, string baseUrl)
+        {
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("INSERT INTO `bluray`(`titre`, `dateSortie`, `duree`, `version`, `disponible`, `IdExterne`, `proprietaire`) VALUES (?1, ?2, ?3, ?4, 0, ?5, (SELECT id FROM sourceEmprunt WHERE baseUrl =?6))", connection);
+                command.Parameters.AddWithValue("1", titre);
+                command.Parameters.AddWithValue("2", dateSortie);
+                command.Parameters.AddWithValue("3", TimeSpan.Parse("00:00:00"));
+                command.Parameters.AddWithValue("4", version);
+                command.Parameters.AddWithValue("5", id);
+                command.Parameters.AddWithValue("6", baseUrl);
+                command.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        
+        public void DeleteBluRayEmprunte(int id)
+        {
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("DELETE FROM bluray WHERE id=?id", connection);
+                command.Parameters.AddWithValue("id", id);
+                command.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        
+        public List<string> GetBluRayEmprunteIdAndUrl(int id)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=root;Database=bluray");
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("SELECT `id`, `baseUrl` FROM `sourceEmprunt` WHERE id = (SELECT proprietaire FROM bluray WHERE id=?id)", connection);
+                command.Parameters.AddWithValue("id", id);
+                MySqlDataReader dr = command.ExecuteReader();
+                
+                while (dr.Read())
+                {
+                    result.Add(dr[0].ToString());
+                    result.Add(dr[1].ToString());
+                }
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+            return result;
+        }
     }
 }
