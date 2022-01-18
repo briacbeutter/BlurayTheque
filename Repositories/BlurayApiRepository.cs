@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using WebApplication.DTOs;
 
@@ -34,8 +33,25 @@ namespace WebApplication.Repositories
             HttpClient client = new HttpClient();
             try
             {
-                Console.WriteLine($"{baseUrl}/Blurays/{idBluray}/Emprunt");
                 HttpResponseMessage response = client.PostAsync(baseUrl + "/Blurays/"+ idBluray + "/Emprunt",new StringContent("")).Result;
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException requestException)
+            {
+                Console.Write(requestException.StackTrace);
+            }
+            finally
+            {
+                client.Dispose();
+            }
+        }
+        
+        public void RendreBluray(string baseUrl, int idBluray)
+        {
+            HttpClient client = new HttpClient();
+            try
+            {
+                HttpResponseMessage response = client.DeleteAsync(baseUrl + "/Blurays/"+ idBluray).Result;
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException requestException)

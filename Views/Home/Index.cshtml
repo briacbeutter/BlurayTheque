@@ -29,7 +29,7 @@
                             <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@br.Version</p>
                         </div>
                     </div>
-                    @if (br.Emprunt == 0)
+                    @if (br.Emprunt)
                     {
                         <div class="button-consult">
                             <a class="text-button" asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id">Consulter</a>

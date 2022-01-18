@@ -68,6 +68,6 @@ namespace WebApplication.DTOs
         /// </summary>
         public Boolean Disponible { get; set; }
         
-        public int Emprunt { get; set; }
+        public Boolean Emprunt { get; set; }
     }
 }
