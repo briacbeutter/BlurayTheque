@@ -152,6 +152,21 @@ namespace WebApplication.Controllers
             return View("BorrowBluray", borrowBlurayViewModel);
         }
         
+        public IActionResult HandleAddPersonView(PersonViewModel formModel)
+        {
+            Console.WriteLine(formModel.Nom);
+            Personne personne = new Personne
+            {
+                Nom = formModel.Nom,
+                Prenom = formModel.Prenom,
+                DateNaissance = DateTime.Parse(formModel.DateNaissance),
+                Nationalite = formModel.Nationalite
+            };
+            pRepository.AddPerson(personne);
+            PersonViewModel personViewModel = new PersonViewModel();
+            return View("AddPersonView",personViewModel);
+        }
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

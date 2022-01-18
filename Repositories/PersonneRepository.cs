@@ -246,5 +246,32 @@ namespace WebApplication.Repositories
 
         return acteurs;
         }
+        
+        public void AddPerson(Personne personne)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
+                connection.Open();
+                
+                MySqlCommand command =
+                    new MySqlCommand(
+                        "INSERT INTO `personne`(`nom`, `prenom`,`dateDeNaissance`,`nationalite`) VALUES (?1, ?2,?3,?4)", connection);
+                command.Parameters.AddWithValue("1", personne.Nom);
+                command.Parameters.AddWithValue("2", personne.Prenom);
+                command.Parameters.AddWithValue("3", personne.DateNaissance);
+                command.Parameters.AddWithValue("4", personne.Nationalite);
+                command.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
