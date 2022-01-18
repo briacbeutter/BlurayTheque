@@ -10,19 +10,16 @@ ViewData["Title"] = "Add Person Page";
 <form method="POST" asp-controller="Home" asp-action="HandleAddPersonView">
     <div>
         <h6><strong>Nom :</strong></h6>
-        <input required type="text" asp-for="Nom"/>
+        <input required type="text" asp-for="Nom" value="@Model.Nom"/>
 
         <h6><strong>Prénom :</strong></h6>
-        <input required type="text" asp-for="Prenom"/>
-
-        <h6><strong>Profession :</strong></h6>
-        <input required type="text" asp-for="Profession"/>
+        <input required type="text" asp-for="Prenom" value="@Model.Prenom"/>
 
         <h6><strong>Date de naissance :</strong></h6>
-        <input required id="data" type="date" asp-for="DateNaissance"/>
+        <input required id="data" type="date" asp-for="DateNaissance" value="@Model.DateNaissance"/>
 
         <h6><strong>Nationalité :</strong></h6>
-        <input required id="text" type="text" asp-for="Nationalite"/>
+        <input required id="text" type="text" asp-for="Nationalite" value="@Model.Nationalite"/>
         
         <input type="submit" value="Ajouter"/>
     </div>

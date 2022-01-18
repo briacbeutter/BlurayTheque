@@ -5,12 +5,6 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using WebApplication.DTOs;
 
-//TODO Consulter => afficher les acteurs 0
-//TODO revoir affichage durée/version 0
-
-//TODO Appel API rendu bluray 3
-//TODO affichage rendu Bluray dans index button 2
-
 
 namespace WebApplication.Repositories
 {
@@ -24,7 +18,6 @@ namespace WebApplication.Repositories
             {
                 var text = baseUrl + "/Blurays";
                 HttpResponseMessage response = client.GetAsync(text).Result;
-                Console.WriteLine(text);
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
                 result = JsonConvert.DeserializeObject<List<BlurayApi>>(responseBody);

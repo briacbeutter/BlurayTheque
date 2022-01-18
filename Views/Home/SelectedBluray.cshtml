@@ -9,19 +9,12 @@
     <div class="text-center card">
         <div class="card-avatar">
         </div>
-        <h1 style="position: relative;top: -40px">
+        <h1 style="position: relative;top: -40px;font-size: 30px">
             @Model.SelectedBluray.Titre
         </h1>
         <h2 style="color: rgba(0,0,0,0.4);font-size: 12px;position: relative;top:-40px">
-           @* @Model.SelectedBluray.Realisateur.Prenom @Model.SelectedBluray.Realisateur.Nom *@
+            @Model.SelectedBluray.Realisateur.Prenom @Model.SelectedBluray.Realisateur.Nom
         </h2>
-        @*<div style="font-size: 12px;position: relative;top:-40px;">
-                    Scenariste(s) :
-                    @foreach (var act in Model.SelectedBluray.Scenariste)
-                    {
-                        <div>@act.Prenom @act.Nom</div>
-                    }
-                </div>*@
         <div style="display: flex;flex-direction: row;justify-content: space-around;position: relative;top: -25px">
             <div style="display: flex;flex-direction: column;justify-content: center;">
                 <p class="subtitle" style="color: rgba(0,0,0,0.4);font-size: 12px;">Date de sortie</p>
@@ -32,13 +25,20 @@
                 <p class="value" style="color: #33557B;font-size: 24px;top: -15px;position: relative;">@Model.SelectedBluray.Duree</p>
             </div>
         </div>
-        @*<div style="position: relative;top: -50px;">
-            Acteurs :
+        <div style="position: relative;top:-40px;">
+            <strong>Scenariste(s) :</strong>
+            @foreach (var act in Model.SelectedBluray.Scenariste)
+            {
+                <div>@act.Prenom @act.Nom</div>
+            }
+        </div>
+        <div style="position: relative;top: -40px;">
+            <strong>Acteurs :</strong>
             @foreach (var act in Model.SelectedBluray.Acteurs)
             {
                 <div>@act.Prenom @act.Nom</div>
             }
-        </div>*@
+        </div>
         <div class="button-del">
             <a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.SelectedBluray.Id">Supprimer</a>
         </div>

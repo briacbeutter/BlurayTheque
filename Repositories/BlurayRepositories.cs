@@ -24,13 +24,12 @@ namespace WebApplication.Repositories
                 connection = new MySqlConnection("Server=localhost;User Id=root;Password=4VzwvXLf;Database=bluray");
                 connection.Open();
                 // Define a query returning a single row result set
-                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image, disponible FROM bluray b", connection);
+                MySqlCommand command = new MySqlCommand("SELECT b.id, titre, dateSortie, duree, version, image, disponible, emprunt FROM bluray b", connection);
                 // Execute the query and obtain a result set
                 MySqlDataReader dr = command.ExecuteReader();
                 // Output rows
                 while (dr.Read())
                 {
-                    Console.Write(dr[6].ToString());
                     listBluRay.Add(new Bluray
                     {
                         Id = int.Parse(dr[0].ToString()),
@@ -39,7 +38,8 @@ namespace WebApplication.Repositories
                         Duree = TimeSpan.Parse(dr[3].ToString()),
                         Version = dr[4].ToString(),
                         Image = dr[5].ToString(),
-                        Disponible = (!dr[6].ToString().Equals("False"))
+                        Disponible = (!dr[6].ToString().Equals("False")),
+                        Emprunt = dr[7].ToString().Equals("False") ? 0 : 1
                     });
                 }
             }
