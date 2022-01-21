@@ -14,7 +14,7 @@ namespace WebApplication
     {
         public static void Main(string[] args)
         {
-            var hostUrl = "http://192.168.1.11:5001"; //configuration["hosturl"]; 
+            var hostUrl = "http://localhost:5001"; //configuration["hosturl"]; 
 
             var configuration = new ConfigurationBuilder().AddCommandLine(args).Build();
  
